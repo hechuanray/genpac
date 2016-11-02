@@ -417,7 +417,6 @@ def generate():
                        indent=None if _cfg.compress else 4,
                        separators=(',', ':') if _cfg.compress else None)
     generated = time.strftime('%a, %d %b %Y %H:%M:%S %z', time.localtime())
-    content = get_pac_tpl()
     content = rules
 
     if not _cfg.output or _cfg.output == '-':
