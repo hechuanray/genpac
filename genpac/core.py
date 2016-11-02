@@ -411,7 +411,7 @@ def generate():
     user_rules = fetch_user_rules()
 
     func_parse = parse_rules_precise if _cfg.precise else parse_rules
-    rules = [func_parse(gfwlist_rules)]
+    rules = func_parse(gfwlist_rules)
 
     rules = json.dumps(rules,
                        indent=None if _cfg.compress else 4,
