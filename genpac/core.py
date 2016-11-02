@@ -411,19 +411,14 @@ def generate():
     user_rules = fetch_user_rules()
 
     func_parse = parse_rules_precise if _cfg.precise else parse_rules
-    rules = [func_parse(user_rules), func_parse(gfwlist_rules)]
+    rules = [func_parse(gfwlist_rules)]
 
     rules = json.dumps(rules,
                        indent=None if _cfg.compress else 4,
                        separators=(',', ':') if _cfg.compress else None)
     generated = time.strftime('%a, %d %b %Y %H:%M:%S %z', time.localtime())
     content = get_pac_tpl()
-    content = replace(content, {'__VERSION__': __version__,
-                                '__GENERATED__': generated,
-                                '__MODIFIED__': gfwlist_modified,
-                                '__GFWLIST_FROM__': gfwlist_from,
-                                '__PROXY__': _cfg.proxy,
-                                '__RULES__': rules})
+    content = rules
 
     if not _cfg.output or _cfg.output == '-':
         return sys.stdout.write(content)
